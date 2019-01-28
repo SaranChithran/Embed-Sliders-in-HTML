@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	
+	
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.4.0/dist/leaflet.css" integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA==" crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" integrity="sha512-QVftwZFqvtRNi0ZyCtsznlKSWOStnDORoefr1enyq5mVL4tmKB3S/EnC3rRJcxCPavG10IcrVGSmPh6Qw5lwrg==" crossorigin=""></script>
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.slidecontainer {
+  width: 100%;
+}
+
+.slider {
+  -webkit-appearance: none;
+  width: 100%;
+  height: 25px;
+  background: #d3d3d3;
+  outline: none;
+  opacity: 0.7;
+  -webkit-transition: .2s;
+  transition: opacity .2s;
+}
+
+.slider:hover {
+  opacity: 1;
+}
+
+.slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 25px;
+  height: 25px;
+  background: #000000;
+  cursor: pointer;
+}
+
+.slider::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: #000000;
+  cursor: pointer;
+}
+</style>
+</head>
+<body>
+
+<form>
+<div class="w3-sidebar w3-bar-block w3-card" style="width:35%;right:0;"> 
+ <button class="w3-bar-item w3-button w3-large w3-hide-large" onclick="w3_close()">Close &times;</button>
+<div class="slidecontainer1">
+<h3>Happiness</h3>
+<p>Drag the slider to display the value of Happiness and the country that could be considered.</p>
+
+<input type="range" min="0" max="6" value="0" class="slider" id="myRange">
+  <p>Value: <span id="demo"></span></p>
+  <b>Countries to be considered:</b><p id="demo1">
+  </p>
+ </div>
+<div class="slidecontainer1">
+<h3>GDP</h3>
+<p>Drag the slider to display the value of GDP and the country that could be considered.</p>
+  <input type="range" min="0" max="6" value="0" class="slider" id="myRange1">
+ <p>Value: <span id="demo2"></span></p>
+  <b>Countries to be considered:</b><p id="demo3">
+  </p>
+</div> 
+<div class="slidecontainer2">
+<h3>Ambient Air Pollution</h3>
+<p>Drag the slider to display the value of Ambient Air Pollution and the country that could be considered.</p>
+  <input type="range" min="0" max="5" value="0" class="slider" id="myRange2">
+ <p>Value: <span id="demo4"></span></p>
+  <b>Countries to be considered:</b><p id="demo5">
+  </p>
+</div> 
+<div class="slidecontainer3">
+<h3>Intentional Homicides</h3>
+<p>Drag the slider to display the value of Intentional Homicides and the country that could be considered.</p>
+  <input type="range" min="0" max="4" value="0" class="slider" id="myRange3">
+ <p>Value: <span id="demo6"></span></p>
+  <b>Countries to be considered:</b><p id="demo7">
+  </p>
+</div> 
+<div class="slidecontainer4">
+<h3>Average Residential Price</h3>
+<p>Drag the slider to display the value of average Residential Price and the country that could be considered.</p>
+  <input type="range" min="0" max="6" value="0" class="slider" id="myRange4">
+ <p>Value: <span id="demo8"></span></p>
+  <b>Countries to be considered:</b><p id="demo9">
+  </p>
+ </div> 
+
+
+</div>
+<div class="w3-main" style="margin-right:200px">
+<div class="w3-teal">
+  <button class="w3-button w3-teal w3-xlarge w3-right w3-hide-large" onclick="w3_open()">&#9776;</button>
+  <div class="w3-container">
+    <h1>Migration</h1>
+  </div>
+</div>
+
+<div class="w3-container">
+  <div id="mapid" style="width: 800px; height: 600px;"></div>
+
+
+<script>
+
+	var mymap = L.map('mapid').setView([49.8175, 15.4730], 4);
+
+	L.tileLayer('https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw', {
+		maxZoom: 18,
+		attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+			'<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+			'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+		id: 'mapbox.streets'
+	}).addTo(mymap);
+  </script>
+
+</div>
+
+</div>
+<script>
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+}
+
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+}
+</script>
+     
+
+
+
+<script>
+var slider4 = document.getElementById("myRange4");
+var output4 = document.getElementById("demo8");
+output4.innerHTML = slider4.value;
+
+var slider3 = document.getElementById("myRange3");
+var output3 = document.getElementById("demo6");
+output3.innerHTML = slider3.value;
+
+var slider2 = document.getElementById("myRange2");
+var output2 = document.getElementById("demo4");
+output2.innerHTML = slider2.value;
+
+var slider1 = document.getElementById("myRange1");
+var output1 = document.getElementById("demo2");
+output1.innerHTML = slider1.value;
+
+var slider = document.getElementById("myRange");
+var output = document.getElementById("demo");
+output.innerHTML = slider.value;
+var o;
+var o1;
+var o2;
+var o3;
+var o4;
+slider.oninput = function() {
+  output.innerHTML = this.value;
+  
+if (output.innerHTML==1)
+{
+o = "Italy";
+var popup1 = new L.Popup({'autoClose':false});
+popup1.setContent('<b>(1)Italy</b> <br>Happiness-index:5.977');
+L.marker([41.8719,12.5674]).addTo(mymap)
+		.bindPopup(popup1).openPopup();    
+}
+else if(output.innerHTML==2)
+{
+o = "France";
+var popup2 = new L.Popup({'autoClose':false});
+popup2.setContent('<b>(2)France</b> <br>Happiness-index:6.478');
+L.marker([46.2276,2.2137]).addTo(mymap)
+		.bindPopup(popup2).openPopup();    
+
+}
+else if(output.innerHTML==3)
+{
+
+o = "Luxembourg";
+var popup3 = new L.Popup({'autoClose':false});
+popup3.setContent('<b>(3)Luxembourg</b> <br>Happiness-index:6.871');
+L.marker([49.8153,6.1333]).addTo(mymap)
+		.bindPopup(popup3).openPopup();    
+
+}
+else if(output.innerHTML==4)
+{
+o = "Belgium";
+var popup4 = new L.Popup({'autoClose':false});
+popup4.setContent('<b>(4)Belgium</b> <br>Happiness-index:6.929');
+L.marker([51.260197,4.402771]).addTo(mymap)
+		.bindPopup(popup4).openPopup();    
+
+}
+else if(output.innerHTML==5)
+{
+o = "Germany";
+var popup5 = new L.Popup({'autoClose':false});
+popup5.setContent('<b>(5)Germany</b> <br>Happiness-index:6.994');
+L.marker([51.1642,10.4541]).addTo(mymap)
+		.bindPopup(popup5).openPopup();    
+}
+else if(output.innerHTML==6)
+{
+o = "Netherlands";
+var popup6 = new L.Popup({'autoClose':false});
+popup6.setContent('<b>(6)Netherlands</b> <br>Happiness-index:7.339');
+L.marker([52.370216,4.895168]).addTo(mymap)
+		.bindPopup(popup6).openPopup();    
+}
+document.getElementById("demo1").innerHTML = o;
+}
+slider1.oninput = function() {
+  output1.innerHTML = this.value;
+if (output1.innerHTML==1)
+{
+o1 = "Italy";
+var popu1 = new L.Popup({'autoClose':false});
+popu1.setContent('<b>(1)Italy</b> <br>GDP:95.3');
+L.marker([41.8719,12.5674]).addTo(mymap)
+		.bindPopup(popu1).openPopup();    
+}
+else if (output1.innerHTML==2)
+{
+o1 = "France";
+var popu2 = new L.Popup({'autoClose':false});
+popu2.setContent('<b>(2)France</b> <br>GDP:113.9');
+L.marker([46.7111,1.7191]).addTo(mymap)
+		.bindPopup(popu2).openPopup();    
+}
+else if (output1.innerHTML==3)
+{
+o1 = "Belgium";
+var popu3 = new L.Popup({'autoClose':false});
+popu3.setContent('<b>(3)Belgium</b> <br>GDP:128.5');
+L.marker([51.260197,4.402771]).addTo(mymap)
+		.bindPopup(popu3).openPopup();    
+}
+else if (output1.innerHTML==4)
+{
+o1 = "Germany";
+var popu4 = new L.Popup({'autoClose':false});
+popu4.setContent('<b>(4)Germany</b> <br>GDP:131.2');
+L.marker([51.1642,10.4541]).addTo(mymap)
+		.bindPopup(popu4).openPopup();    
+}
+else if (output1.innerHTML==5)
+{
+o1 = "Netherlands";
+var popu5 = new L.Popup({'autoClose':false});
+popu5.setContent('<b>(5)Netherlands</b> <br>GDP:142.2');
+L.marker([52.370216,4.895168]).addTo(mymap)
+		.bindPopup(popu5).openPopup();    
+}
+else if (output1.innerHTML==6)
+{
+o1 = "Luxembourg";
+var popu6 = new L.Popup({'autoClose':false});
+popu6.setContent('<b>(6)Luxembourg</b> <br>GDP:311.9');
+L.marker([49.8153,6.1333]).addTo(mymap)
+		.bindPopup(popu6).openPopup();    
+}
+
+document.getElementById("demo3").innerHTML = o1;
+}
+slider2.oninput = function() {
+  output2.innerHTML = this.value;
+if (output2.innerHTML==1)
+{
+o2 = "France";
+var pop1 = new L.Popup({'autoClose':false});
+pop1.setContent('<b>(1)France</b> <br>Ambient Air Pollution: 12');
+L.marker([46.7111,1.7191]).addTo(mymap)
+		.bindPopup(pop1).openPopup();    
+}
+else if (output2.innerHTML==2)
+{
+o2 = "Germany";
+var pop2 = new L.Popup({'autoClose':false});
+pop2.setContent('<b>(2)Germany</b> <br>Ambient Air Pollution: 14');
+L.marker([51.1642,10.4541]).addTo(mymap)
+		.bindPopup(pop2).openPopup();    
+}
+else if (output2.innerHTML==3)
+{
+o2 = "Netherlands,Belgium";
+var pop3 = new L.Popup({'autoClose':false});
+pop3.setContent('<b>(3)Netherlands</b> <br>Ambient Air Pollution: 15');
+L.marker([52.370216,4.895168]).addTo(mymap)
+		.bindPopup(pop3).openPopup();    
+var pop4 = new L.Popup({'autoClose':false});
+pop4.setContent('<b>(3)Belgium</b> <br>Ambient Air Pollution: 15');
+L.marker([51.260197,4.402771]).addTo(mymap)
+		.bindPopup(pop4).openPopup();    
+}
+else if (output2.innerHTML==4)
+{
+o2 = "Luxembourg";
+var pop5 = new L.Popup({'autoClose':false});
+pop5.setContent('<b>(4)Luxembourg</b> <br>Ambient Air Pollution: 16');
+L.marker([49.8153,6.1333]).addTo(mymap)
+		.bindPopup(pop5).openPopup();    
+}
+else if (output2.innerHTML==5)
+{
+o2 = "Italy";
+var pop6 = new L.Popup({'autoClose':false});
+pop6.setContent('<b>(5)Italy</b> <br>Ambient Air Pollution: 17');
+L.marker([41.8719,12.5674]).addTo(mymap)
+		.bindPopup(pop6).openPopup();    
+}
+
+
+document.getElementById("demo5").innerHTML = o2;
+}
+slider3.oninput = function() {
+  output3.innerHTML = this.value;
+  
+if (output3.innerHTML==1)
+{
+o3 = "Italy,Netherlands";
+var po1 = new L.Popup({'autoClose':false});
+po1.setContent('<b>(1)Italy</b> <br>Intentional Homicides: 0.7');
+L.marker([41.8719,12.5674]).addTo(mymap)
+		.bindPopup(po1).openPopup();    
+var po2 = new L.Popup({'autoClose':false});
+po2.setContent('<b>(1)Netherlands</b> <br>Intentional Homicides: 0.7');
+L.marker([52.370216,4.895168]).addTo(mymap)
+		.bindPopup(po2).openPopup();    
+}
+else if(output3.innerHTML==2)
+{
+o3="Luxembourg,Germany";
+var po3 = new L.Popup({'autoClose':false});
+po3.setContent('<b>(2)Luxembourg</b> <br>Intentional Homicides: 0.9');
+L.marker([49.8153,6.1333]).addTo(mymap)
+		.bindPopup(po3).openPopup();    
+var po4 = new L.Popup({'autoClose':false});
+po4.setContent('<b>(2)Germany</b> <br>Intentional Homicides: 0.9');
+L.marker([51.1642,10.4541]).addTo(mymap)
+		.bindPopup(po4).openPopup();    
+}
+else if(output3.innerHTML==3)
+{
+o3="France";
+var po5 = new L.Popup({'autoClose':false});
+po5.setContent('<b>(3)France</b> <br>Intentional Homicides: 1.3');
+L.marker([46.7111,1.7191]).addTo(mymap)
+		.bindPopup(po5).openPopup();    
+
+}
+else if(output3.innerHTML==4)
+{
+o3="Belgium";
+var po6 = new L.Popup({'autoClose':false});
+po6.setContent('<b>(4)Belgium</b> <br>Intentional Homicides: 2');
+L.marker([51.260197,4.402771]).addTo(mymap)
+		.bindPopup(po6).openPopup();    
+
+}
+document.getElementById("demo7").innerHTML = o3;}
+slider4.oninput = function() {
+  output4.innerHTML = this.value;
+  
+if (output4.innerHTML==1)
+{
+o4="Belgium";
+var p1 = new L.Popup({'autoClose':false});
+p1.setContent('<b>(1)Belgium</b> <br>Average Residential Price:3023');
+L.marker([51.260197,4.402771]).addTo(mymap)
+		.bindPopup(p1).openPopup();    
+}
+else if(output4.innerHTML==2)
+{
+o4="Luxembourg";
+var p2 = new L.Popup({'autoClose':false});
+p2.setContent('<b>(2)Luxembourg</b> <br>Average Residential Price:4605');
+L.marker([49.8153,6.1333]).addTo(mymap)
+		.bindPopup(p2).openPopup();    
+}
+else if(output4.innerHTML==3)
+{
+o4="Germany";
+var p3 = new L.Popup({'autoClose':false});
+p3.setContent('<b>(3)Germany</b> <br>Average Residential Price:5907');
+L.marker([51.1642,10.4541]).addTo(mymap)
+		.bindPopup(p3).openPopup();    
+}
+else if(output4.innerHTML==4)
+{
+o4="Italy";
+var p4 = new L.Popup({'autoClose':false});
+p4.setContent('<b>(4)Italy</b> <br>Average Residential Price:6589');
+L.marker([41.8719,12.5674]).addTo(mymap)
+		.bindPopup(p4).openPopup();    
+}
+else if(output4.innerHTML==5)
+{
+o4="Netherlands";
+var p5 = new L.Popup({'autoClose':false});
+p5.setContent('<b>(5)Netherlands</b> <br>Average Residential Price:6902');
+L.marker([52.370216,4.895168]).addTo(mymap)
+		.bindPopup(p5).openPopup();    
+}
+else if(output4.innerHTML==6)
+{
+o4="France";
+var p6 = new L.Popup({'autoClose':false});
+p6.setContent('<b>(6)France</b> <br>Average Residential Price:12796');
+L.marker([46.7111,1.7191]).addTo(mymap)
+		.bindPopup(p6).openPopup();    
+}
+document.getElementById("demo9").innerHTML = o4;
+}
+</script>
+<button onclick="func()">Clear the markers</button>
+<script>
+func()
+{
+location.reload(true);
+}</script>
+<input type="reset" onclick="func1()">
+<script>
+func1()
+{
+o=" ";
+o1=" ";
+o2=" ";
+o3=" ";
+o4=" ";
+}</script>
+</form>
+</body>
+</html>
